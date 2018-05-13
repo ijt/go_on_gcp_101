@@ -1,0 +1,119 @@
+Go on GCP (Google Cloud Platform)
+May 2018, Singapore
+
+Issac Trotts
+SWE on Google App Engine runtimes team
+issactrotts@google.com
+go-nuts@google.com
+
+* May the gopher be with you.
+.image gopher.png 
+
+* Sticky notes
+I'd like to know when everyone's done with each step.
+Please attach a sticky note to your laptop when you're done.
+
+* Making a project
+Go to console.cloud.google.com.
+Make a project (suggestion: "go")
+Enable billing.
+
+* Starting Cloud Shell
+Click the Cloud Shell icon (>_) at the top right.
+The Cloud Shell is already running `tmux`.
+Try it by hitting ctrl-b % to split vertically (ctrl-d to close it).
+Make new tabs with `+` and rename them with ctrl-comma.
+Go, Git and Vim are already installed.
+There's a Cloud Editor that you can launch with the pencil icon.
+Cloud Shell enables development from a Chromebook.
+
+* Try installing and running a Go web app
+        go get golang.org/x/tools/cmd/present
+        present -http local᠎host:8080
+
+Preview it with the eyeball icon to the right of the pencil.
+
+* GAE standard
+Create a simple web-server in Go to serve a static page.
+Local development.
+
+* GAE flex
+Create a simple web-server in Go to serve a static page.
+
+* GKE
+Create a Dockerfile using scratch base-image to build a Docker image for a simple Go program serving a web page. Push the image to GCR. Spinn up a GKE cluster with gcloud, deploy and scale your application from the image registry.
+
+* GCE
+Spin up a standard instance from a Go program.
+Delete the instance.
+
+* Hands-on GCP API exercises
+`https://cloud.google.com/go/home`
+Let's do each one, about 15 minutes each.
+
+* Storage API (GCS) part 1: make a bucket (10 min)
+`https://cloud.google.com/go/home`
+
+	mkdir -p ~/gopath/src/gogcp/gcs_mkbucket
+	cd ~/gopath/src/gogcp/gcs_mkbucket
+	cat >main.go  # paste from web
+
+Edit `main.go` to use your project ID and change the bucket name to something
+unique.
+
+	go get  # builds the app, saves it as ~/gopath/bin/gcs_mkbucket
+	gcs_mkbucket # runs the app
+
+* Storage API (GCS) part 2: upload a file (15 min)
+
+Upload a file to your newly created bucket.
+Download a file from your bucket.
+
+* Bigquery API
+`https://cloud.google.com/go/home`
+
+* PubSub API
+`https://cloud.google.com/go/home`
+
+* Translation API
+`https://cloud.google.com/go/home`
+
+* Vision API
+`https://cloud.google.com/go/home`
+
+* Pub/sub
+Create a topic.
+Set up a Subscriber who can poll from the Queue.
+Create a Publisher which periodically pushes messages on the Queue.
+
+* Datastore
+Create a Kind, with its property and keys.
+Add some data.
+Do a lookup query.
+
+* Speech
+Upload a small Audio-file to Speech-API and print out the translated Text.
+
+* Vision
+Post an image to the Vision API and print the output of labels found.
+
+* NLP
+Upload a paragraph of text to the NLP API, and echo Sentiment and other information returned from the NLP API.
+
+* Translation
+Translate a paragraph of text to a foreign language, echo the output.
+
+* BigQuery
+Create a data Dataset, and create a table.
+Populate the table with some data.
+Query your newly created Table.
+
+* Spanner
+Create a new table.
+Create rows in an existing table.
+Run a read-only query.
+
+
+* Downloading Go on GCP examples
+
+
