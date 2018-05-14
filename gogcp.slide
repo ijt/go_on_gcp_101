@@ -29,13 +29,27 @@ Cloud Shell enables development from a Chromebook.
 
 * Try installing and running a Go web app
         go get golang.org/x/tools/cmd/present
-        present -http local᠎host:8080
+        present -http localhost:8080
 
 Preview it with the eyeball icon to the right of the pencil.
 
 * GAE standard
 Create a simple web-server in Go to serve a static page.
-Local development.
+
+	go get -u -d github.com/GoogleCloudPlatform/golang-samples/appengine/helloworld/...
+	cd $GOPATH/src/github.com/GoogleCloudPlatform/golang-samples/appengine/helloworld
+	$EDITOR main.go   # similar to a plain Go web app, but different
+	$EDITOR app.yaml
+
+Try it out locally:
+
+	dev_appserver.py app.yaml
+	# Visit localhost:8080 in a browser.
+
+Deploy it:
+
+	gcloud config set project ${PROJECT?}
+	gcloud app deploy .
 
 * GAE flex
 Create a simple web-server in Go to serve a static page.
