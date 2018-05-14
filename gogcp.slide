@@ -55,7 +55,7 @@ Deploy it:
 Create a simple web-server in Go to serve a static page.
 
 * GKE
-Create a Dockerfile using scratch base-image to build a Docker image for a simple Go program serving a web page. Push the image to GCR. Spinn up a GKE cluster with gcloud, deploy and scale your application from the image registry.
+Create a Dockerfile using scratch base-image to build a Docker image for a simple Go program serving a web page. Push the image to GCR. Spin up a GKE cluster with gcloud, deploy and scale your application from the image registry.
 
 * GCE
 Spin up a standard instance from a Go program.
