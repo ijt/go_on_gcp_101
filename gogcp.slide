@@ -15,8 +15,7 @@ Please attach a sticky note to your laptop when you're done.
 
 * Making a project
 Go to console.cloud.google.com.
-Make a project (suggestion: "go")
-Enable billing.
+Make a project (suggestion: "go", henceforth ${PROJECT?}).
 
 * Starting Cloud Shell
 Click the Cloud Shell icon (>_) at the top right.
@@ -37,7 +36,7 @@ Preview it with the eyeball icon to the right of the pencil.
 Create a simple web-server in Go to serve a static page.
 
 	go get -u -d github.com/GoogleCloudPlatform/golang-samples/appengine/helloworld/...
-	cd $GOPATH/src/github.com/GoogleCloudPlatform/golang-samples/appengine/helloworld
+	cd ${GOPATH/:*//}/src/github.com/GoogleCloudPlatform/golang-samples/appengine/helloworld
 	$EDITOR main.go   # similar to a plain Go web app, but different
 	$EDITOR app.yaml
 
@@ -54,8 +53,53 @@ Deploy it:
 * GAE flex
 Create a simple web-server in Go to serve a static page.
 
-* GKE
-Create a Dockerfile using scratch base-image to build a Docker image for a simple Go program serving a web page. Push the image to GCR. Spin up a GKE cluster with gcloud, deploy and scale your application from the image registry.
+	go get -u -d github.com/GoogleCloudPlatform/golang-samples/appengine_flexible/helloworld/...
+	cd ${GOPATH/:*//}/src/github.com/GoogleCloudPlatform/golang-samples/appengine_flexible/helloworld 
+	$EDITOR main.go   # just a plain Go web app (portable!)
+	$EDITOR app.yaml  # stuff to compensate for Flex's lack of scaling to zero :|
+
+Try it out locally:
+
+	go get  # builds the web app and installs it to $GOPATH/bin/helloworld
+	$GOPATH/bin/helloworld
+	# Open web browser on localhost:8080.
+
+Enable billing.
+
+Deploy it:
+
+	gcloud app deploy  # 13.5m
+
+* GKE part 1: make an app image
+[[https://cloud.google.com/kubernetes-engine/docs/quickstart]]
+
+	mkdir -p ~/gopath/src/${PROJECT?}/gkedemo
+	cd 	 ~/gopath/src/${PROJECT?}/gkedemo
+	cat >Dockerfile # paste contents of Dockerfile at bottom of the quickstart
+	cat >main.go    # past contents of main.go
+	docker build -t gcr.io/${PROJECT?}/gkedemo .
+	gcloud auth configure-docker
+	docker tag gkedemo gcr.io/${PROJECT?}/gkedemo
+	gcloud docker -- push gcr.io/${PROJECT?}/gkedemo
+
+* GKE part 2: make a cluster and deploy the app
+[[https://cloud.google.com/kubernetes-engine/docs/quickstart]]
+
+	gcloud config set compute/zone us-west1-a
+	CLUSTER=c1
+	gcloud container clusters create ${CLUSTER?}
+	gcloud container clusters get-credentials ${CLUSTER?}
+	kubectl run hello-server --image gcr.io/go-on-gcp-101/gkedemo --port 8080
+	kubectl expose deployment hello-server --type "LoadBalancer"
+	kubectl get service hello-server
+	
+Copy the IP address from the EXTERNAL-IP column and visit it on port 8080.
+
+Clean up:
+
+	kubectl delete service hello-server
+	kubectl delete deployment hello-server
+	gcloud container clusters delete ${CLUSTER?}
 
 * GCE
 Spin up a standard instance from a Go program.
