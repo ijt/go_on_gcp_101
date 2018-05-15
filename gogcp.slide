@@ -131,37 +131,39 @@ Let's do each one, about 15 minutes each.
 Edit `main.go` to use your project ID and change the bucket name to something
 unique.
 
-	go get  # builds the app, saves it as ~/gopath/bin/gcs_mkbucket
+	go get       # builds the app, saves it as ~/gopath/bin/gcs_mkbucket
 	gcs_mkbucket # runs the app
 
 * Storage API (GCS) part 2: upload a file (10m)
 
 	cd ~/gopath/src/github.com/GoogleCloudPlatform/golang-samples/storage/gcsupload
-	go install
+	go get
 
 Try uploading a file to the bucket you made:
 
 	export GOLANG_SAMPLES_BUCKET=[your bucket]
 	export GOLANG_SAMPLES_PROJECT_ID=[your project]
-	gcsupload < main.go  # for example
+	gcsupload < gcsupload.go  # for example
 
 Open the URL it prints out to see the uploaded file.
 
-Code: `https://github.com/GoogleCloudPlatform/golang-samples/blob/master/storage/gcsupload/gcsupload.go`
+	$EDITOR gcsupload.go
 
 * Storage API (GCS) part 3: download a file (10m)
 
 	cd ~/gopath/src/github.com/GoogleCloudPlatform/golang-samples/storage/objects
-	go install
+	go get
 	export GOOGLE_CLOUD_PROJECT=go-on-gcp-101
 	objects -o=[your bucket]:test-sample read  # prints out the file you uploaded
-
-Code: `https://github.com/GoogleCloudPlatform/golang-samples/blob/master/storage/objects/main.go`
+	$ EDITOR main.go
 
 * Bigquery API
 `https://cloud.google.com/go/home`
 
-	go get -u cloud.google.com/go/bigquery
+	cd ~/gopath/src/github.com/GoogleCloudPlatform/golang-samples/bigquery/simpleapp
+	go get
+	simpleapp  # runs a query over StackOverflow questions
+	$EDITOR simpleapp.go
 
 * PubSub API
 `https://cloud.google.com/go/home`
