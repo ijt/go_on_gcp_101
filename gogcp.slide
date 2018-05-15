@@ -32,7 +32,7 @@ Cloud Shell enables development from a Chromebook.
 
 Preview it with the eyeball icon to the right of the pencil.
 
-* GAE standard
+* GAE (Google App Engine) standard
 Create a simple web-server in Go to serve a static page.
 
 	go get -u -d github.com/GoogleCloudPlatform/golang-samples/appengine/helloworld/...
@@ -70,7 +70,7 @@ Deploy it:
 
 	gcloud app deploy  # 13.5m
 
-* GKE part 1: make an app image
+* GKE (Google Kubernetes Engine) part 1: make an app image (20m)
 [[https://cloud.google.com/kubernetes-engine/docs/quickstart]]
 
 	mkdir -p ~/gopath/src/${PROJECT?}/gkedemo
@@ -89,7 +89,7 @@ Deploy it:
 	CLUSTER=c1
 	gcloud container clusters create ${CLUSTER?}
 	gcloud container clusters get-credentials ${CLUSTER?}
-	kubectl run hello-server --image gcr.io/go-on-gcp-101/gkedemo --port 8080
+	kubectl run hello-server --image gcr.io/${PROJECT?}/gkedemo --port 8080
 	kubectl expose deployment hello-server --type "LoadBalancer"
 	kubectl get service hello-server
 	
@@ -101,15 +101,23 @@ Clean up:
 	kubectl delete deployment hello-server
 	gcloud container clusters delete ${CLUSTER?}
 
-* GCE
-Spin up a standard instance from a Go program.
-Delete the instance.
+* GCE (Google Compute Engine) (30m)
+Follow the tutorial at [[https://cloud.google.com/go/tutorials/bookshelf-on-compute-engine]]
+up to the point where you see your bookshelf running.
+
+Fixes for the `instances create` call:
+1. Add `--metadata app-location=$BOOKSHELF_DEPLOY_LOCATION`
+2. Change `gce/startup-script.sh` to `gce_deployment/startup-script.sh`.
+
+After playing with the app, delete it like this:
+
+	gcloud compute instances create my-app-instance
 
 * Hands-on GCP API exercises
 `https://cloud.google.com/go/home`
 Let's do each one, about 15 minutes each.
 
-* Storage API (GCS) part 1: make a bucket (10 min)
+* Storage API (GCS) part 1: make a bucket (10m)
 `https://cloud.google.com/go/home`
 
 	mkdir -p ~/gopath/src/gogcp/gcs_mkbucket
@@ -122,10 +130,27 @@ unique.
 	go get  # builds the app, saves it as ~/gopath/bin/gcs_mkbucket
 	gcs_mkbucket # runs the app
 
-* Storage API (GCS) part 2: upload a file (15 min)
+* Storage API (GCS) part 2: upload a file (10m)
 
-Upload a file to your newly created bucket.
-Download a file from your bucket.
+	go get -u github.com/GoogleCloudPlatform/golang-samples/storage/gcsupload
+
+Try uploading a file to the bucket you made:
+
+	export GOLANG_SAMPLES_BUCKET=[your bucket]
+	export GOLANG_SAMPLES_PROJECT_ID=[your project]
+	gcsupload < main.go  # for example
+
+Open the URL it prints out to see the uploaded file.
+
+Code: `https://github.com/GoogleCloudPlatform/golang-samples/blob/master/storage/gcsupload/gcsupload.go`
+
+* Storage API (GCS) part 3: download a file (10m)
+
+	go get -u github.com/GoogleCloudPlatform/golang-samples/storage/objects
+	export GOOGLE_CLOUD_PROJECT=go-on-gcp-101
+	objects -o=[your bucket]:test-sample read  # prints out the file you uploaded
+
+Code: `https://github.com/GoogleCloudPlatform/golang-samples/blob/master/storage/objects/main.go`
 
 * Bigquery API
 `https://cloud.google.com/go/home`
@@ -171,7 +196,5 @@ Create a new table.
 Create rows in an existing table.
 Run a read-only query.
 
-
 * Downloading Go on GCP examples
-
 
