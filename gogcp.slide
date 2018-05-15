@@ -32,11 +32,16 @@ Cloud Shell enables development from a Chromebook.
 
 Preview it with the eyeball icon to the right of the pencil.
 
+* Grab the samples
+
+	go get -u -d github.com/GoogleCloudPlatform/golang-samples
+	# -u means update it if it's already downloaded
+	# -d means don't build anything yet
+
 * GAE (Google App Engine) standard
 Create a simple web-server in Go to serve a static page.
 
-	go get -u -d github.com/GoogleCloudPlatform/golang-samples/appengine/helloworld/...
-	cd ${GOPATH/:*//}/src/github.com/GoogleCloudPlatform/golang-samples/appengine/helloworld
+	cd ~/gopath/src/github.com/GoogleCloudPlatform/golang-samples/appengine/helloworld
 	$EDITOR main.go   # similar to a plain Go web app, but different
 	$EDITOR app.yaml
 
@@ -53,15 +58,14 @@ Deploy it:
 * GAE flex
 Create a simple web-server in Go to serve a static page.
 
-	go get -u -d github.com/GoogleCloudPlatform/golang-samples/appengine_flexible/helloworld/...
-	cd ${GOPATH/:*//}/src/github.com/GoogleCloudPlatform/golang-samples/appengine_flexible/helloworld 
+	cd ~/gopath/src/github.com/GoogleCloudPlatform/golang-samples/appengine_flexible/helloworld 
 	$EDITOR main.go   # just a plain Go web app (portable!)
 	$EDITOR app.yaml  # stuff to compensate for Flex's lack of scaling to zero :|
 
 Try it out locally:
 
 	go get  # builds the web app and installs it to $GOPATH/bin/helloworld
-	$GOPATH/bin/helloworld
+	~/gopath/bin/helloworld
 	# Open web browser on localhost:8080.
 
 Enable billing.
@@ -132,7 +136,8 @@ unique.
 
 * Storage API (GCS) part 2: upload a file (10m)
 
-	go get -u github.com/GoogleCloudPlatform/golang-samples/storage/gcsupload
+	cd ~/gopath/src/github.com/GoogleCloudPlatform/golang-samples/storage/gcsupload
+	go install
 
 Try uploading a file to the bucket you made:
 
@@ -146,7 +151,8 @@ Code: `https://github.com/GoogleCloudPlatform/golang-samples/blob/master/storage
 
 * Storage API (GCS) part 3: download a file (10m)
 
-	go get -u github.com/GoogleCloudPlatform/golang-samples/storage/objects
+	cd ~/gopath/src/github.com/GoogleCloudPlatform/golang-samples/storage/objects
+	go install
 	export GOOGLE_CLOUD_PROJECT=go-on-gcp-101
 	objects -o=[your bucket]:test-sample read  # prints out the file you uploaded
 
@@ -154,6 +160,8 @@ Code: `https://github.com/GoogleCloudPlatform/golang-samples/blob/master/storage
 
 * Bigquery API
 `https://cloud.google.com/go/home`
+
+	go get -u cloud.google.com/go/bigquery
 
 * PubSub API
 `https://cloud.google.com/go/home`
