@@ -9,15 +9,25 @@ go-nuts@google.com
 * May the gopher be with you.
 .image gopher.png 
 
+* Reference
+[[https://godoc.org/cloud.google.com/go]]
+
 * Sticky notes
 I'd like to know when everyone's done with each step.
 Please attach a sticky note to your laptop when you're done.
 
-* Making a project
+* Make a project
 Go to console.cloud.google.com.
 Make a project (suggestion: "go", henceforth ${PROJECT?}).
+Once it finishes, go to APIs | Credentials.
+Click the blue "Create credentials" button, then choose "Service account key".
+Pick "Compute engine default service account" from the Service account menu.
+Open the downloaded JSON file and paste its contents to a new file: 
 
-* Starting Cloud Shell
+	export GOOGLE_APPLICATION_CREDENTIALS=$HOME/gogcp-creds.json
+	cat >$GOOGLE_APPLICATION_CREDENTIALS  # hit enter, then paste
+
+* Start Cloud Shell
 Click the Cloud Shell icon (>_) at the top right.
 The Cloud Shell is already running `tmux`.
 Try it by hitting ctrl-b % to split vertically (ctrl-d to close it).
@@ -185,22 +195,9 @@ Subscribe to the topic:
 	subscriptions
 
 * Translation API
-In `console.cloud.google.com`, go to APIs | Credentials.
-Click the "Create credentials" button and choose "API key". 
 
 	cd ~/gopath/src/github.com/GoogleCloudPlatform/golang-samples/translate
 	$EDITOR main.go
-
-Change the line with NewClient to be
-
-        apiKey := "YOUR API KEY"
-	client, err := translate.NewClient(ctx, option.WithAPIKey(apiKey))
-
-and import
-
-	"google.golang.org/api/option"
-
-Then
 	go get
 	translate_quickstart
 
@@ -208,7 +205,12 @@ Exercise (15m): convert this into a tool that translates a string on the
 command line to a language of the user's choosing.
 
 * Vision API
-`https://cloud.google.com/go/home`
+Enable the Vision API in the Cloud Console.
+
+	cd ~/gopath/src/github.com/GoogleCloudPlatform/golang-samples/vision/vision_quickstart
+	$EDITOR main.go
+	go get
+	vision_quickstart
 
 * Datastore
 Create a Kind, with its property and keys.
