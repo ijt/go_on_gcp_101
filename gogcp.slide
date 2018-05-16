@@ -152,32 +152,63 @@ Open the URL it prints out to see the uploaded file.
 * Storage API (GCS) part 3: download a file (10m)
 
 	cd ~/gopath/src/github.com/GoogleCloudPlatform/golang-samples/storage/objects
+	$ EDITOR main.go
 	go get
 	export GOOGLE_CLOUD_PROJECT=go-on-gcp-101
 	objects -o=[your bucket]:test-sample read  # prints out the file you uploaded
-	$ EDITOR main.go
 
 * Bigquery API
-`https://cloud.google.com/go/home`
 
+Run a query over StackOverflow questions:
 	cd ~/gopath/src/github.com/GoogleCloudPlatform/golang-samples/bigquery/simpleapp
-	go get
-	simpleapp  # runs a query over StackOverflow questions
 	$EDITOR simpleapp.go
+	go get
+	simpleapp  
+
+Homework:
+	Create a data Dataset, and create a table.
+	Populate the table with some data.
+	Query your newly created Table.
 
 * PubSub API
-`https://cloud.google.com/go/home`
+
+Make a new topic and publish a message to it:
+	cd ~/gopath/src/github.com/GoogleCloudPlatform/golang-samples/pubsub/topics
+	$EDITOR main.go
+	go get
+	topics
+
+Subscribe to the topic:
+	cd ~/gopath/src/github.com/GoogleCloudPlatform/golang-samples/pubsub/subscriptions
+	$EDITOR main.go
+	go get
+	subscriptions
 
 * Translation API
-`https://cloud.google.com/go/home`
+In `console.cloud.google.com`, go to APIs | Credentials.
+Click the "Create credentials" button and choose "API key". 
+
+	cd ~/gopath/src/github.com/GoogleCloudPlatform/golang-samples/translate
+	$EDITOR main.go
+
+Change the line with NewClient to be
+
+        apiKey := "YOUR API KEY"
+	client, err := translate.NewClient(ctx, option.WithAPIKey(apiKey))
+
+and import
+
+	"google.golang.org/api/option"
+
+Then
+	go get
+	translate_quickstart
+
+Exercise (15m): convert this into a tool that translates a string on the
+command line to a language of the user's choosing.
 
 * Vision API
 `https://cloud.google.com/go/home`
-
-* Pub/sub
-Create a topic.
-Set up a Subscriber who can poll from the Queue.
-Create a Publisher which periodically pushes messages on the Queue.
 
 * Datastore
 Create a Kind, with its property and keys.
@@ -193,13 +224,6 @@ Post an image to the Vision API and print the output of labels found.
 * NLP
 Upload a paragraph of text to the NLP API, and echo Sentiment and other information returned from the NLP API.
 
-* Translation
-Translate a paragraph of text to a foreign language, echo the output.
-
-* BigQuery
-Create a data Dataset, and create a table.
-Populate the table with some data.
-Query your newly created Table.
 
 * Spanner
 Create a new table.
