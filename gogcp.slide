@@ -213,9 +213,11 @@ Enable the Vision API in the Cloud Console.
 	vision_quickstart
 
 * Datastore
-Create a Kind, with its property and keys.
-Add some data.
-Do a lookup query.
+	cd ~/gopath/src/github.com/GoogleCloudPlatform/golang-samples/datastore/tasks
+	$EDITOR tasks.go
+	go get
+	export DATASTORE_PROJECT_ID=[YOUR PROJECT ID]
+	tasks
 
 * Speech
 Upload a small Audio-file to Speech-API and print out the translated Text.
@@ -226,11 +228,8 @@ Post an image to the Vision API and print the output of labels found.
 * NLP
 Upload a paragraph of text to the NLP API, and echo Sentiment and other information returned from the NLP API.
 
-
 * Spanner
 Create a new table.
 Create rows in an existing table.
 Run a read-only query.
-
-* Downloading Go on GCP examples
 
