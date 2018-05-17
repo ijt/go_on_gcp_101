@@ -236,7 +236,14 @@ Homework: record your own voice saying something as an mp3 file.
 Then convert it to a format supported by the Speech API (FLAC or LINEAR 16) and see how it does.
 
 * NLP
-Upload a paragraph of text to the NLP API, and echo Sentiment and other information returned from the NLP API.
+Enable the Cloud Natural Language API in the Cloud Console.
+
+	cd ~/gopath/src/github.com/GoogleCloudPlatform/golang-samples/language/language_quickstart
+	$EDITOR main.go
+	go run main.go
+
+Exercise: Change it to take any text as input and print out the raw score
+instead of Positive or Negative.
 
 * Spanner
 Create a new table.
