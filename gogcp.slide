@@ -22,10 +22,6 @@ Make a project (suggestion: "go", henceforth ${PROJECT?}).
 Once it finishes, go to APIs | Credentials.
 Click the blue "Create credentials" button, then choose "Service account key".
 Pick "Compute engine default service account" from the Service account menu.
-Open the downloaded JSON file and paste its contents to a new file: 
-
-	export GOOGLE_APPLICATION_CREDENTIALS=$HOME/gogcp-creds.json
-	cat >$GOOGLE_APPLICATION_CREDENTIALS  # hit enter, then paste
 
 * Start Cloud Shell
 Click the Cloud Shell icon (>_) at the top right.
@@ -35,6 +31,13 @@ Make new tabs with `+` and rename them with ctrl-comma.
 Go, Git and Vim are already installed.
 There's a Cloud Editor that you can launch with the pencil icon.
 Cloud Shell enables development from a Chromebook.
+For consistency, we'll be working in the Cloud Shell for the rest of this class.
+
+* Store the credentials
+Open the downloaded JSON file and paste its contents to a new file:
+
+	export GOOGLE_APPLICATION_CREDENTIALS=$HOME/gogcp-creds.json
+	cat >$GOOGLE_APPLICATION_CREDENTIALS  # hit enter, then paste
 
 * Try installing and running a Go web app
         go get golang.org/x/tools/cmd/present
@@ -67,8 +70,7 @@ Deploy it:
 
 * GAE flex
 Create a simple web-server in Go to serve a static page.
-
-	cd ~/gopath/src/github.com/GoogleCloudPlatform/golang-samples/appengine_flexible/helloworld 
+cd ~/gopath/src/github.com/GoogleCloudPlatform/golang-samples/appengine_flexible/helloworld 
 	$EDITOR main.go   # just a plain Go web app (portable!)
 	$EDITOR app.yaml  # stuff to compensate for Flex's lack of scaling to zero :|
 
@@ -212,6 +214,9 @@ Enable the Vision API in the Cloud Console.
 	go get
 	vision_quickstart
 
+Exercise: make it work on any image. (10m)
+See what it does on something other than cats.
+
 * Datastore
 	cd ~/gopath/src/github.com/GoogleCloudPlatform/golang-samples/datastore/tasks
 	$EDITOR tasks.go
@@ -220,10 +225,15 @@ Enable the Vision API in the Cloud Console.
 	tasks
 
 * Speech
-Upload a small Audio-file to Speech-API and print out the translated Text.
+Enable the Speech API in the Cloud Console.
 
-* Vision
-Post an image to the Vision API and print the output of labels found.
+	cd ~/gopath/src/github.com/GoogleCloudPlatform/golang-samples/speech/caption
+	$EDITOR caption.go
+	go get
+	caption ../testdata/audio.raw
+
+Homework: record your own voice saying something as an mp3 file.
+Then convert it to a format supported by the Speech API (FLAC or LINEAR 16) and see how it does.
 
 * NLP
 Upload a paragraph of text to the NLP API, and echo Sentiment and other information returned from the NLP API.
