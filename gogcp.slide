@@ -40,6 +40,7 @@ Open the downloaded JSON file and paste its contents to a new file:
 	cat >$GOOGLE_APPLICATION_CREDENTIALS  # hit enter, then paste
 
 * Try installing and running a Go web app
+
         go get golang.org/x/tools/cmd/present
         present -http localhost:8080
 
@@ -70,7 +71,8 @@ Deploy it:
 
 * GAE flex
 Create a simple web-server in Go to serve a static page.
-cd ~/gopath/src/github.com/GoogleCloudPlatform/golang-samples/appengine_flexible/helloworld 
+
+	cd ~/gopath/src/github.com/GoogleCloudPlatform/golang-samples/appengine_flexible/helloworld 
 	$EDITOR main.go   # just a plain Go web app (portable!)
 	$EDITOR app.yaml  # stuff to compensate for Flex's lack of scaling to zero :|
 
@@ -89,33 +91,17 @@ Deploy it:
 * GKE (Google Kubernetes Engine) part 1: make an app image (20m)
 [[https://cloud.google.com/kubernetes-engine/docs/quickstart]]
 
-	mkdir -p ~/gopath/src/${PROJECT?}/gkedemo
-	cd 	 ~/gopath/src/${PROJECT?}/gkedemo
-	cat >Dockerfile # paste contents of Dockerfile at bottom of the quickstart
-	cat >main.go    # past contents of main.go
-	docker build -t gcr.io/${PROJECT?}/gkedemo .
-	gcloud auth configure-docker
-	docker tag gkedemo gcr.io/${PROJECT?}/gkedemo
-	gcloud docker -- push gcr.io/${PROJECT?}/gkedemo
+.code -numbers gke1.bash
 
 * GKE part 2: make a cluster and deploy the app
-[[https://cloud.google.com/kubernetes-engine/docs/quickstart]]
 
-	gcloud config set compute/zone us-west1-a
-	CLUSTER=c1
-	gcloud container clusters create ${CLUSTER?}
-	gcloud container clusters get-credentials ${CLUSTER?}
-	kubectl run hello-server --image gcr.io/${PROJECT?}/gkedemo --port 8080
-	kubectl expose deployment hello-server --type "LoadBalancer"
-	kubectl get service hello-server
+.code -numbers gke2.bash
 	
 Copy the IP address from the EXTERNAL-IP column and visit it on port 8080.
 
 Clean up:
 
-	kubectl delete service hello-server
-	kubectl delete deployment hello-server
-	gcloud container clusters delete ${CLUSTER?}
+.code -numbers gke3.bash
 
 * GCE (Google Compute Engine) (30m)
 Follow the tutorial at [[https://cloud.google.com/go/tutorials/bookshelf-on-compute-engine]]
@@ -164,7 +150,7 @@ Open the URL it prints out to see the uploaded file.
 * Storage API (GCS) part 3: download a file (10m)
 
 	cd ~/gopath/src/github.com/GoogleCloudPlatform/golang-samples/storage/objects
-	$ EDITOR main.go
+	$EDITOR main.go
 	go get
 	export GOOGLE_CLOUD_PROJECT=go-on-gcp-101
 	objects -o=[your bucket]:test-sample read  # prints out the file you uploaded
@@ -172,12 +158,14 @@ Open the URL it prints out to see the uploaded file.
 * Bigquery API
 
 Run a query over StackOverflow questions:
+
 	cd ~/gopath/src/github.com/GoogleCloudPlatform/golang-samples/bigquery/simpleapp
 	$EDITOR simpleapp.go
 	go get
 	simpleapp  
 
 Homework:
+
 	Create a data Dataset, and create a table.
 	Populate the table with some data.
 	Query your newly created Table.
@@ -185,12 +173,14 @@ Homework:
 * PubSub API
 
 Make a new topic and publish a message to it:
+
 	cd ~/gopath/src/github.com/GoogleCloudPlatform/golang-samples/pubsub/topics
 	$EDITOR main.go
 	go get
 	topics
 
 Subscribe to the topic:
+
 	cd ~/gopath/src/github.com/GoogleCloudPlatform/golang-samples/pubsub/subscriptions
 	$EDITOR main.go
 	go get
@@ -218,6 +208,7 @@ Exercise: make it work on any image. (10m)
 See what it does on something other than cats.
 
 * Datastore
+
 	cd ~/gopath/src/github.com/GoogleCloudPlatform/golang-samples/datastore/tasks
 	$EDITOR tasks.go
 	go get
@@ -246,7 +237,10 @@ Enable the Cloud Natural Language API in the Cloud Console.
 	analyze entitysentiment 'You know nothing, Jon Snow!'
 
 * Spanner
-Create a new table.
-Create rows in an existing table.
-Run a read-only query.
+Enable the Spanner API in the Cloud Console.
+Create a spanner instance in the Cloud Console.
 
+	cd ~/gopath/src/github.com/GoogleCloudPlatform/golang-samples/spanner/spanner_arrays
+	$EDITOR main.go
+	go get
+	spanner_arrays

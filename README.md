@@ -1,2 +1,2 @@
-# go_on_gcp_101
+# go\_on\_gcp\_101
 Course about using Go on Google Cloud Platform
