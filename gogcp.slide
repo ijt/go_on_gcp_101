@@ -113,7 +113,7 @@ Fixes for the `instances create` call:
 
 After playing with the app, delete it like this:
 
-	gcloud compute instances create my-app-instance
+	gcloud compute instances delete my-app-instance
 
 * Hands-on GCP API exercises
 `https://cloud.google.com/go/home`
@@ -188,7 +188,7 @@ Subscribe to the topic:
 
 * Translation API
 
-	cd ~/gopath/src/github.com/GoogleCloudPlatform/golang-samples/translate
+	cd ~/gopath/src/github.com/GoogleCloudPlatform/golang-samples/translate/translate_quickstart
 	$EDITOR main.go
 	go get
 	translate_quickstart
